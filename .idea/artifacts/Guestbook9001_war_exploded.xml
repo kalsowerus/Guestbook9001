@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Guestbook9001" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="PrimeFaces-6.1" />
+          <element id="library" level="project" name="Mojarra-2.2.1" />
+        </element>
       </element>
     </root>
   </artifact>
