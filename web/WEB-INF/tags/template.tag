@@ -7,6 +7,8 @@
 --%>
 <%@ tag body-content="scriptless" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
 	<title>Guestbook</title>
@@ -18,9 +20,19 @@
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="/login">Login</a>
-				</li>
+				<c:choose>
+					<c:when test="${not empty user}">
+						<li><c:out value="${user.username}"/></li>
+						<li>
+							<a href="/logout">Logout</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li>
+							<a href="/login">Login</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</nav>
