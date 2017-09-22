@@ -22,4 +22,8 @@ public class User {
 	public boolean hasRole(Role role) {
 		return getRoles().contains(role);
 	}
+
+	public boolean isAdmin() {
+		return hasRole(Role.ADMIN);
+	}
 }

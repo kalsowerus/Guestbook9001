@@ -25,7 +25,6 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView doLogin(HttpServletRequest request, @RequestParam("username") String username,
 								@RequestParam("password") String password) {
-		System.out.println(password);
 		if(userDao.authenticateUser(username, password)) {
 			HttpSession session = request.getSession(true);
 			User user = userDao.getUser(username);
@@ -36,6 +35,12 @@ public class LoginController {
 			modelAndView.addObject("failed", true);
 			return modelAndView;
 		}
+	}
+
+	@RequestMapping(value = "/logout")
+	public ModelAndView doLogout(HttpServletRequest request) {
+		request.getSession(true).removeAttribute("user");
+		return new ModelAndView("redirect:/");
 	}
 
 	protected UserDao getUserDao() {

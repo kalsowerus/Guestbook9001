@@ -22,9 +22,18 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${not empty user}">
-						<li><c:out value="${user.username}"/></li>
-						<li>
-							<a href="/logout">Logout</a>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+							   		aria-expanded="false">
+								<c:if test="${user.admin}">
+									<span class="glyphicon glyphicon-star"></span>
+								</c:if>
+								<c:out value="${user.username}" /> <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/logout">Logout</a>
+								</li>
+							</ul>
 						</li>
 					</c:when>
 					<c:otherwise>
