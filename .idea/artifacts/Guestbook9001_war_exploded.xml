@@ -10,6 +10,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="lib" />
           <element id="library" level="project" name="org.springframework:spring-webmvc:4.3.10.RELEASE" />
+          <element id="library" level="project" name="jstl:jstl:1.2" />
         </element>
       </element>
     </root>
