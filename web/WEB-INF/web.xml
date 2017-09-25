@@ -14,6 +14,15 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>sessionInvalidationFilter</filter-name>
+        <filter-class>guestbook.filter.SessionInvalidationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionInvalidationFilter</filter-name>
+        <servlet-name>dispatcher</servlet-name>
+    </filter-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
