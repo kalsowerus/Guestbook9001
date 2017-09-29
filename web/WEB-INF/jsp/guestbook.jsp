@@ -15,7 +15,7 @@
 			<input type="hidden" name="csrfToken" value="${csrfToken}" />
 			<div class="form-group">
 				<label for="text">Text</label>
-				<textarea class="form-control" id="text" name="text"></textarea>
+				<textarea class="form-control" id="text" name="text" autofocus></textarea>
 			</div>
 			<button type="submit" class="btn btn-default">Post</button>
 		</form>
