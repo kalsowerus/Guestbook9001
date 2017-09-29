@@ -2,6 +2,13 @@
 
 ## Documentation
 
+### Session-Fixation
+
+Um Session-Fixation-Angriffe zu verhindern, mussten wir in unserer JSP Applikation nur vor dem Login die aktuelle
+Session des (noch) anonymen Benutzers invalidieren. Dies geschieht mit einem Aufruf der
+`javax.servlet.http.HttpSession.invalidate()`-Methode. Nach diesem Aufruf, gibt der nächste aufruf auf
+`javax.servlet.http.HttpServletRequest.getSession(true)` eine neue Session zurück und weist diese dem Benutzer zu.
+
 ### CSRF
 
 Die einzige Seite, welche anfällig auf CSRF-Angriffe ist und somit abgesichert werden muss, ist die Startseite.
@@ -15,7 +22,7 @@ Formular aus, die POST-Request ausgelöst hat.
 Dazu verwenden wir einen CSRF-Token.
 
 Ein CSRF-Token ist eine eindeutige ID, welche beim Aufruf des Formulars per GET-Request, diesem zugewiesen wird.
-Um einen CSRF-Angriff erfolgreich durchfugühren, müsste der Angreifer den aktuellen CSRF-Token des Benutzer erraten.
+Um einen CSRF-Angriff erfolgreich durchzuführen, müsste der Angreifer den aktuellen CSRF-Token des Benutzer kennen.
 
 In unserem Fall ist der CSRF-Token eine UUID (universally unique identifier) nach RFC 4122 Standard. Das generieren
 dieser UUID in Java ist sehr trivial.
