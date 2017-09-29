@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.UUID;
 
 @Controller
@@ -28,17 +30,18 @@ public class GuestbookController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView doPost(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/");
+	public ModelAndView doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession(true);
 		if(LoginUtil.isLoggedIn(session)) {
 			String csrfSessionToken = (String) session.getAttribute(CSRF_TOKEN_ATTRIBUTE_NAME);
-			String csrfRequestToken = (String) request.getAttribute(CSRF_TOKEN_ATTRIBUTE_NAME);
+			String csrfRequestToken = request.getParameter(CSRF_TOKEN_ATTRIBUTE_NAME);
 			if(csrfSessionToken != null && csrfSessionToken.equals(csrfRequestToken)) {
-				LogFactory.getLog(GuestbookController.class).info("Anti-CSRF successful");
 				// save post
+				return new ModelAndView("redirect:/");
 			}
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return null;
 		}
-		return modelAndView;
+		return new ModelAndView("redirect:/login");
 	}
 }
