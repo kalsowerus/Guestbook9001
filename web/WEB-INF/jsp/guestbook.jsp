@@ -12,6 +12,7 @@
 	<h1>Guestbook</h1>
 	<c:if test="${not empty user}">
 		<form method="POST">
+			<input type="hidden" name="csrfToken" value="${csrfToken}" />
 			<div class="form-group">
 				<label for="text">Text</label>
 				<textarea class="form-control" id="text" name="text"></textarea>
