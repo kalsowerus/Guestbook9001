@@ -26,6 +26,7 @@ public class LoginController {
 	public ModelAndView doLogin(HttpServletRequest request, @RequestParam("username") String username,
 								@RequestParam("password") String password) {
 		if(userDao.authenticateUser(username, password)) {
+			request.getSession(true).invalidate();
 			HttpSession session = request.getSession(true);
 			User user = userDao.getUser(username);
 			session.setAttribute("user", user);
