@@ -1,8 +1,19 @@
 package guestbook.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+@Entity
+@NamedQueries({
+	@NamedQuery(name="User.findByUsername", query="select u from User where u.username = :username")
+})
+public class User implements Serializable {
+
+	public final static String FIND_BY_USERNAME = "User.findByUsername";
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private final String username;
 	private final List<Role> roles;
 

@@ -1,8 +1,14 @@
 package guestbook.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Entry {
+@Entity
+public class Entry implements Serializable{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private final long id;
 	private String text;
 	private final User creator;
