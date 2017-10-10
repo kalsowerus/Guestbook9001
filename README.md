@@ -1,6 +1,11 @@
 # Guestbook9001
 
-## Documentation
+## Installation
+
+Die Datei `apache/httpd.conf` muss die Standardkonfigurationsdatei von Apache ersetzten. Die Konfigurationsdatei geht
+davon aus, dass die Apache Installtion diejenige von XAMPP ist.
+
+## Dokumentation
 
 ### Session-Fixation
 
