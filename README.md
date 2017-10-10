@@ -34,8 +34,8 @@ dieser UUID in Java ist sehr trivial.
 Die Java Standard-Library bietet eine Klasse `java.util.UUID`, welche mithilfe eines kryptografisch sicheren
 Zufallszahlengenerators eine UUID generiert.
 
-Bei unserer Implementation wird bei jeder GET-Request eines eingeloggten Benutzer auf der Startseite eine UUID als
-CSRF-Token generiert.
+Bei unserer Implementation wird beim ersten Aufruf der Startseite eines eingeloggten Benutzer eine UUID als CSRF-Token
+generiert.
 Dieser CSRF-Token wird dann in die Session gespeichert und als verstecktes Input-Feld ins Formular eingefügt.
 Wenn eine POST-Request eines eingeloggten Benutzers auf die Startseite erfolgt, wird überprüft, ob der CSRF-Token des
 Formulars mit dem CSRF-Token aus der Session übereinstimmt, wenn dies nicht der Fall ist wird ein `HTTP 403`-Fehler

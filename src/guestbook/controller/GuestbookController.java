@@ -22,8 +22,11 @@ public class GuestbookController {
 		ModelAndView modelAndView = new ModelAndView("guestbook");
 		HttpSession session = request.getSession(true);
 		if(LoginUtil.isLoggedIn(session)) {
-			String csrfToken = UUID.randomUUID().toString();
-			session.setAttribute(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
+			String csrfToken;
+			if((csrfToken = (String) session.getAttribute(CSRF_TOKEN_ATTRIBUTE_NAME)) == null) {
+				csrfToken = UUID.randomUUID().toString();
+				session.setAttribute(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
+			}
 			modelAndView.addObject(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
 		}
 		return modelAndView;
