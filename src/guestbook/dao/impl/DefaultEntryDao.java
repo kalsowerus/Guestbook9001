@@ -4,7 +4,7 @@ import guestbook.dao.EntryDao;
 import guestbook.entity.Entry;
 import guestbook.helper.EntityManagerHelper;
 
-public class DefaultEntryDAO implements EntryDao{
+public class DefaultEntryDao implements EntryDao{
 
     private final EntityManagerHelper emh = new EntityManagerHelper();
 
