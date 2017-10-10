@@ -3,7 +3,7 @@
 ## Installation
 
 Die Datei `apache/httpd.conf` muss die Standardkonfigurationsdatei von Apache ersetzten. Die Konfigurationsdatei geht
-davon aus, dass die Apache Installtion diejenige von XAMPP ist.
+davon aus, dass die Apache Installation diejenige von XAMPP ist.
 
 ## Dokumentation
 
@@ -26,7 +26,7 @@ Um hier einen CSRF-Angriff zu verhindern, müssen wir sichergehen, dass der Benu
 Formular aus, die POST-Request ausgelöst hat.
 Dazu verwenden wir einen CSRF-Token.
 
-Ein CSRF-Token ist eine eindeutige ID, welche beim Aufruf des Formulars per GET-Request, diesem zugewiesen wird.
+Ein CSRF-Token ist eine eindeutige ID, welche beim Aufruf des Formulars per GET-Request diesem Formular zugewiesen wird.
 Um einen CSRF-Angriff erfolgreich durchzuführen, müsste der Angreifer den aktuellen CSRF-Token des Benutzer kennen.
 
 In unserem Fall ist der CSRF-Token eine UUID (universally unique identifier) nach RFC 4122 Standard. Das generieren
