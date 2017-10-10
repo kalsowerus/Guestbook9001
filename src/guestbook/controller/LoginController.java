@@ -44,6 +44,16 @@ public class LoginController {
 		return new ModelAndView("redirect:/");
 	}
 
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView getRegister() {
+		return new ModelAndView("register");
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView doRegister() {
+		return new ModelAndView("redirect:/");
+	}
+
 	protected UserDao getUserDao() {
 		return userDao;
 	}

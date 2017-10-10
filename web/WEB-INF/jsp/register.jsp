@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:template>
-	<form action="/login" method="POST">
+	<form action="/register" method="POST">
 		<c:if test="${failed}">
 			<div class="alert alert-danger" role="alert">invalid username or password</div>
 		</c:if>
@@ -21,7 +21,10 @@
 			<label for="password">Password</label>
 			<input type="password" class="form-control" id="password" name="password">
 		</div>
-		<button type="submit" class="btn btn-default">Login</button>
-		<a href="/register" class="btn btn-link">Register</a>
+		<div class="form-group">
+			<label for="password">Repeat Password</label>
+			<input type="password" class="form-control" id="password_repeat" name="password_repeat">
+		</div>
+		<button type="submit" class="btn btn-default">Register</button>
 	</form>
 </t:template>
