@@ -7,6 +7,7 @@
 --%>
 <%@ tag body-content="scriptless" %>
 
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -20,7 +21,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-book"></span> Guestbook</a>
+				<a class="navbar-brand" href="/"><t:glyphicon glyphicon="book" /> Guestbook</a>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
@@ -29,9 +30,10 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 							   		aria-expanded="false">
 								<c:if test="${user.admin}">
-									<span class="glyphicon glyphicon-star"></span>
+									<t:glyphicon glyphicon="star" />
 								</c:if>
-								<c:out value="${user.username}" /> <span class="caret"></span></a>
+								<c:out value="${user.username}" /> <span class="caret"></span>
+							</a>
 							<ul class="dropdown-menu">
 								<li>
 									<a href="/logout">Logout</a>
