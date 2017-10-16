@@ -25,15 +25,15 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView doLogin(HttpServletRequest request, @RequestParam("username") String username,
 								@RequestParam("password") String password) {
-		if(userDao.authenticateUser(username, password)) {
+		if(getUserDao().authenticateUser(username, password)) {
 			request.getSession(true).invalidate();
 			HttpSession session = request.getSession(true);
-			User user = userDao.getUser(username);
+			User user = getUserDao().getUser(username);
 			session.setAttribute("user", user);
 			return new ModelAndView("redirect:/");
 		} else {
 			ModelAndView modelAndView = new ModelAndView("login");
-			modelAndView.addObject("failed", true);
+			modelAndView.addObject("error", "Invalid username or password");
 			return modelAndView;
 		}
 	}
@@ -50,8 +50,21 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView doRegister() {
-		return new ModelAndView("redirect:/");
+	public ModelAndView doRegister(@RequestParam("username") String username, @RequestParam("password") String password,
+								   @RequestParam("password_repeat") String passwordRepeat) {
+		if(getUserDao().getUser(username) != null) {
+
+			ModelAndView modelAndView = new ModelAndView("register");
+			modelAndView.addObject("error", "User exists");
+			return modelAndView;
+		} else if(password == null || !password.equals(passwordRepeat)) {
+			ModelAndView modelAndView = new ModelAndView("register");
+			modelAndView.addObject("error", "Passwords don't match");
+			return modelAndView;
+		} else {
+			// create user
+			return new ModelAndView("redirect:/");
+		}
 	}
 
 	protected UserDao getUserDao() {

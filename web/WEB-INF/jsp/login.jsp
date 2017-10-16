@@ -10,9 +10,6 @@
 
 <t:template>
 	<form action="/login" method="POST">
-		<c:if test="${failed}">
-			<div class="alert alert-danger" role="alert">invalid username or password</div>
-		</c:if>
 		<t:formGroup id="username" name="username" text="Username" type="text" autofocus="true" />
 		<t:formGroup id="password" name="password" text="Password" type="password" />
 		<button type="submit" class="btn btn-default">Login</button>
