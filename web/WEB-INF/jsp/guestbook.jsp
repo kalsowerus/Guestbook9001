@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="g" uri="/WEB-INF/custom.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <t:template>
 	<h1>Guestbook</h1>
+	<g:escape value="${text}" />
 	<c:if test="${not empty user}">
 		<form:form method="POST" modelAttribute="guestbookForm">
 			<input type="hidden" name="csrfToken" value="${csrfToken}" />

@@ -2,6 +2,8 @@ package guestbook.controller;
 
 import guestbook.form.GuestbookForm;
 import guestbook.util.LoginUtil;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,8 @@ public class GuestbookController {
 			}
 			model.addAttribute(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
 		}
+		model.addAttribute("text", "<script>alert('test');</script><b>test</b> <a href=\"http://google.ch\">Google</a>");
+
 		return "guestbook";
 	}
 
