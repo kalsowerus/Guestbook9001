@@ -7,12 +7,13 @@
 --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <t:template>
-	<form action="/login" method="POST">
-		<t:formGroup id="username" name="username" text="Username" type="text" autofocus="true" />
-		<t:formGroup id="password" name="password" text="Password" type="password" />
+	<form:form action="/login" method="POST" modelAttribute="loginForm">
+		<t:formGroup id="username" text="Username" type="text" autofocus="true" />
+		<t:formGroup id="password" text="Password" type="password" />
 		<button type="submit" class="btn btn-default">Login</button>
 		<a href="/register" class="btn btn-link">Register</a>
-	</form>
+	</form:form>
 </t:template>

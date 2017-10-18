@@ -1,7 +1,7 @@
 package guestbook.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @ControllerAdvice
 public class ExceptionController {
-    public static final Log LOG = LogFactory.getLog(ExceptionController.class);
+    public static final Logger LOG = LoggerFactory.getLogger(ExceptionController.class);
 
     @ExceptionHandler(Throwable.class)
     public ModelAndView handleException(HttpServletResponse response, Throwable throwable) {

@@ -2,69 +2,84 @@ package guestbook.controller;
 
 import guestbook.dao.UserDao;
 import guestbook.entity.User;
+import guestbook.form.LoginForm;
+import guestbook.form.RegisterForm;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
 	@Resource
 	UserDao userDao;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView getLogin() {
-		return new ModelAndView("login");
+	@GetMapping("/login")
+	public String getLogin(Model model) {
+		model.addAttribute("loginForm", new LoginForm());
+		return "login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView doLogin(HttpServletRequest request, @RequestParam("username") String username,
-								@RequestParam("password") String password) {
+	@PostMapping("/login")
+	public String doLogin(HttpServletRequest request, Model model,
+						  @Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result) {
+		if(result.hasErrors()) {
+			return "login";
+		}
+
+		String username = loginForm.getUsername();
+		String password = loginForm.getPassword();
+
 		if(getUserDao().authenticateUser(username, password)) {
 			request.getSession(true).invalidate();
 			HttpSession session = request.getSession(true);
 			User user = getUserDao().getUser(username);
 			session.setAttribute("user", user);
-			return new ModelAndView("redirect:/");
+			return "redirect:/";
 		} else {
-			ModelAndView modelAndView = new ModelAndView("login");
-			modelAndView.addObject("error", "Invalid username or password");
-			return modelAndView;
+			model.addAttribute("error", "Invalid username or password");
+			return "login";
 		}
 	}
 
-	@RequestMapping(value = "/logout")
-	public ModelAndView doLogout(HttpServletRequest request) {
+	@RequestMapping("/logout")
+	public String doLogout(HttpServletRequest request) {
 		request.getSession(true).removeAttribute("user");
-		return new ModelAndView("redirect:/");
+		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView getRegister() {
-		return new ModelAndView("register");
+	@GetMapping("/register")
+	public String getRegister(Model model) {
+		model.addAttribute("registerForm", new RegisterForm());
+		return "register";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView doRegister(@RequestParam("username") String username, @RequestParam("password") String password,
-								   @RequestParam("password_repeat") String passwordRepeat) {
+	@PostMapping("/register")
+	public String doRegister(Model model, @Valid @ModelAttribute("registerForm") RegisterForm registerForm,
+							 BindingResult result) {
+		if(result.hasErrors()) {
+			return "login";
+		}
+
+		String username = registerForm.getUsername();
+		String password = registerForm.getPassword();
+		String passwordRepeat = registerForm.getPasswordRepeat();
+
 		if(getUserDao().getUser(username) != null) {
-
-			ModelAndView modelAndView = new ModelAndView("register");
-			modelAndView.addObject("error", "User exists");
-			return modelAndView;
+			model.addAttribute("error", "User exists");
 		} else if(password == null || !password.equals(passwordRepeat)) {
-			ModelAndView modelAndView = new ModelAndView("register");
-			modelAndView.addObject("error", "Passwords don't match");
-			return modelAndView;
+			model.addAttribute("error", "Passwords don't match");
 		} else {
 			// create user
-			return new ModelAndView("redirect:/");
+			return "redirect:/";
 		}
+
+		return "register";
 	}
 
 	protected UserDao getUserDao() {
