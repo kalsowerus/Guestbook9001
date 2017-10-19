@@ -12,15 +12,14 @@
 
 <t:template>
 	<h1>Guestbook</h1>
-	<g:escape value="${text}" />
 	<c:if test="${not empty user}">
 		<form:form method="POST" modelAttribute="guestbookForm">
 			<input type="hidden" name="csrfToken" value="${csrfToken}" />
 			<div class="form-group">
-				<label for="text">Text</label>
-				<textarea class="form-control" id="text" name="text" autofocus></textarea>
+				<form:label path="text">Text</form:label>
+				<form:textarea class="form-control" path="text" autofocus="true" />
+				<form:errors path="text" />
 			</div>
-			<t:formGroup id="text" text="Text" type="textarea" />
 			<button type="submit" class="btn btn-default">Post</button>
 		</form:form>
 	</c:if>

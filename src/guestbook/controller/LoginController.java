@@ -63,7 +63,7 @@ public class LoginController {
 	public String doRegister(Model model, @Valid @ModelAttribute("registerForm") RegisterForm registerForm,
 							 BindingResult result) {
 		if(result.hasErrors()) {
-			return "login";
+			return "register";
 		}
 
 		String username = registerForm.getUsername();

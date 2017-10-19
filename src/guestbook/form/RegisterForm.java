@@ -5,13 +5,13 @@ import guestbook.form.constraint.Password;
 import javax.validation.constraints.NotEmpty;
 
 public class RegisterForm {
-	@NotEmpty(message = "Username must not be empty")
+	@NotEmpty
 	private String username;
 
 	@Password
 	private String password;
 
-	@NotEmpty(message = "Password Repeat must not be empty")
+	@NotEmpty
 	private String passwordRepeat;
 
 	public String getUsername() {

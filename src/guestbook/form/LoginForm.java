@@ -3,10 +3,10 @@ package guestbook.form;
 import javax.validation.constraints.NotEmpty;
 
 public class LoginForm {
-	@NotEmpty(message = "Username must not be empty")
+	@NotEmpty
 	private String username;
 
-	@NotEmpty(message = "Password must not be empty")
+	@NotEmpty
 	private String password;
 
 	public String getUsername() {
