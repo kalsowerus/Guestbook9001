@@ -29,7 +29,7 @@ public class CsrfFilter implements Filter {
 
 		if(request.getMethod().equals("POST")) {
 			if(!csrfToken.equals(request.getParameter("csrfToken"))) {
-				LOG.info(String.format("Invalid csrf token on %s", LogUtil.getRequestInfo(request)));
+				LOG.warn(String.format("Invalid csrf token on %s", LogUtil.getRequestInfo(request)));
 				response.sendError(HttpServletResponse.SC_FORBIDDEN);
 			}
 		}

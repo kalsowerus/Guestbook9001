@@ -28,7 +28,7 @@ public class SessionInvalidationFilter implements Filter {
         if(lastActiveObject != null) {
             long lastActive = lastActiveObject.longValue();
             if(currentTime - lastActive > SESSION_TIMEOUT) {
-                LOG.info(String.format("Invalidated session of '%s' due to timeout", LogUtil.getUser(request)));
+                LOG.info(String.format("Invalidated session of %s due to timeout", LogUtil.getUserInfo(request)));
                 session.invalidate();
                 session = request.getSession(true);
             }

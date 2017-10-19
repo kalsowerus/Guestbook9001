@@ -6,15 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 
 public class LogUtil {
 	public static String getRequestInfo(HttpServletRequest request) {
-		return String.format("%s '%s' by '%s'/%s",
+		return String.format("%s '%s' by %s",
 				request.getMethod(),
 				request.getRequestURI(),
-				getUser(request),
-				request.getRemoteAddr());
+				getUserInfo(request));
 	}
 
-	public static String getUser(HttpServletRequest request) {
+	public static String getUserInfo(HttpServletRequest request) {
 		User user = (User) request.getSession(true).getAttribute("user");
-		return user != null ? user.getUsername() : "anonymous user";
+		return String.format("'%s'/%s",
+				user != null ? user.getUsername() : "anonymous user",
+				request.getRemoteAddr());
 	}
 }
