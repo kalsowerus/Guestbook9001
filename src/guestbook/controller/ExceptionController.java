@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,7 +38,10 @@ public class ExceptionController {
         model.addAttribute("code", code);
         model.addAttribute("message", message);
 
-        LOG.info(String.format("HTTP error: %s, %s caused by %s", code, message, LogUtil.getUserInfo(request)));
+        LOG.info(String.format("HTTP error: %s, %s on request %s '%s' caused by %s",
+                code, message,
+                request.getMethod(), request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI),
+                LogUtil.getUserInfo(request)));
 
         return "error";
     }
