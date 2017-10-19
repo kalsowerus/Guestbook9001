@@ -1,5 +1,10 @@
 package guestbook.filter;
 
+import guestbook.entity.User;
+import guestbook.util.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +13,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class CsrfFilter implements Filter {
+	private static final Logger LOG = LoggerFactory.getLogger(CsrfFilter.class);
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {}
 
@@ -22,6 +29,7 @@ public class CsrfFilter implements Filter {
 
 		if(request.getMethod().equals("POST")) {
 			if(!csrfToken.equals(request.getParameter("csrfToken"))) {
+				LOG.info(String.format("Invalid csrf token on %s", LogUtil.getRequestInfo(request)));
 				response.sendError(HttpServletResponse.SC_FORBIDDEN);
 			}
 		}
