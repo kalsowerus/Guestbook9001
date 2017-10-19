@@ -10,10 +10,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <t:template>
-	<form:form action="/login" method="POST" modelAttribute="loginForm">
+	<t:form action="/login" method="POST" modelAttribute="loginForm">
 		<t:formGroup id="username" text="Username" type="text" autofocus="true" />
 		<t:formGroup id="password" text="Password" type="password" />
 		<button type="submit" class="btn btn-default">Login</button>
 		<a href="/register" class="btn btn-link">Register</a>
-	</form:form>
+	</t:form>
 </t:template>

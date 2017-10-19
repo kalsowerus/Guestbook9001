@@ -25,12 +25,6 @@ public class GuestbookController {
 		HttpSession session = request.getSession(true);
 		if(LoginUtil.isLoggedIn(session)) {
 			model.addAttribute("guestbookForm", new GuestbookForm());
-			String csrfToken;
-			if((csrfToken = (String) session.getAttribute(CSRF_TOKEN_ATTRIBUTE_NAME)) == null) {
-				csrfToken = UUID.randomUUID().toString();
-				session.setAttribute(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
-			}
-			model.addAttribute(CSRF_TOKEN_ATTRIBUTE_NAME, csrfToken);
 		}
 
 		return "guestbook";
@@ -45,14 +39,8 @@ public class GuestbookController {
 
 		HttpSession session = request.getSession(true);
 		if(LoginUtil.isLoggedIn(session)) {
-			String csrfSessionToken = (String) session.getAttribute(CSRF_TOKEN_ATTRIBUTE_NAME);
-			String csrfRequestToken = request.getParameter(CSRF_TOKEN_ATTRIBUTE_NAME);
-			if(csrfSessionToken != null && csrfSessionToken.equals(csrfRequestToken)) {
-				// save post
-				return "redirect:/";
-			}
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
-			return null;
+			//save post
+			return "redirect:/";
 		}
 		return "redirect:/login";
 	}

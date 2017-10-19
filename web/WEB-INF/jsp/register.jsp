@@ -10,13 +10,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <t:template>
-	<form:form action="/register" method="POST" modelAttribute="registerForm">
-		<c:if test="${failed}">
-			<div class="alert alert-danger" role="alert">invalid username or password</div>
-		</c:if>
+	<t:form action="/register" method="POST" modelAttribute="registerForm">
 		<t:formGroup id="username" text="Username" type="text" autofocus="true" />
 		<t:formGroup id="password" text="Password" type="password" />
 		<t:formGroup id="passwordRepeat" text="Repeat Password" type="password" />
 		<button type="submit" class="btn btn-default">Register</button>
-	</form:form>
+	</t:form>
 </t:template>

@@ -13,14 +13,13 @@
 <t:template>
 	<h1>Guestbook</h1>
 	<c:if test="${not empty user}">
-		<form:form method="POST" modelAttribute="guestbookForm">
-			<input type="hidden" name="csrfToken" value="${csrfToken}" />
+		<t:form action="/" method="POST" modelAttribute="guestbookForm">
 			<div class="form-group">
 				<form:label path="text">Text</form:label>
 				<form:textarea class="form-control" path="text" autofocus="true" />
 				<form:errors path="text" />
 			</div>
 			<button type="submit" class="btn btn-default">Post</button>
-		</form:form>
+		</t:form>
 	</c:if>
 </t:template>
