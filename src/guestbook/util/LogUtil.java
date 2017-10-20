@@ -14,8 +14,8 @@ public class LogUtil {
 
 	public static String getUserInfo(HttpServletRequest request) {
 		User user = (User) request.getSession(true).getAttribute("user");
-		return String.format("'%s'/%s",
-				user != null ? user.getUsername() : "anonymous user",
+		return String.format("%s/%s",
+				user != null ? String.format("'%s'", user.getUsername()) : "<anonymous user>",
 				request.getRemoteAddr());
 	}
 }
