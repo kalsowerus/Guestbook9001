@@ -16,8 +16,19 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script>
+		$(function() {
+			$(".logoutLink").click(function(event) {
+				event.preventDefault();
+				$("#logoutForm").submit();
+			});
+		});
+	</script>
 </head>
 <body>
+	<form method="POST" action="/logout" id="logoutForm" style="display: none;">
+		<input type="hidden" name="csrfToken" value="${csrfToken}" />
+	</form>
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -36,7 +47,7 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="/logout">Logout</a>
+									<a href="/logout" class="logoutLink">Logout</a>
 								</li>
 							</ul>
 						</li>

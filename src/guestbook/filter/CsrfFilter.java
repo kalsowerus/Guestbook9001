@@ -32,6 +32,7 @@ public class CsrfFilter implements Filter {
 				LOG.warn(String.format("Invalid csrf token on %s", LogUtil.getRequestInfo(request)));
 				HttpServletResponse response = (HttpServletResponse) servletResponse;
 				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				return;
 			}
 		}
 

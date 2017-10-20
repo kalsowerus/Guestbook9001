@@ -4,6 +4,9 @@ import guestbook.dao.UserDao;
 import guestbook.entity.User;
 import guestbook.form.LoginForm;
 import guestbook.form.RegisterForm;
+import guestbook.util.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,8 @@ import javax.validation.Valid;
 
 @Controller
 public class LoginController {
+	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+
 	public static final String USER_ATTRIBUTE_NAME = "user";
 
 	@Resource
@@ -49,8 +54,9 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/logout")
-	public String doLogout(HttpServletRequest request) {
+	@PostMapping("/logout")
+	public String postLogout(HttpServletRequest request) {
+		LOG.info(String.format("Logged out %s", LogUtil.getUserInfo(request)));
 		request.getSession(true).removeAttribute(USER_ATTRIBUTE_NAME);
 		return "redirect:/";
 	}
