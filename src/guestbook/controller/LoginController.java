@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 public class LoginController {
+	public static final String USER_ATTRIBUTE_NAME = "user";
 	@Resource
 	UserDao userDao;
 
@@ -26,8 +27,8 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String doLogin(HttpServletRequest request, Model model,
-						  @Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result) {
+	public String postLogin(HttpServletRequest request, Model model,
+							@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result) {
 		if(result.hasErrors()) {
 			return "login";
 		}
@@ -39,7 +40,7 @@ public class LoginController {
 			request.getSession(true).invalidate();
 			HttpSession session = request.getSession(true);
 			User user = getUserDao().getUser(username);
-			session.setAttribute("user", user);
+			session.setAttribute(USER_ATTRIBUTE_NAME, user);
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "Invalid username or password");
@@ -49,7 +50,7 @@ public class LoginController {
 
 	@RequestMapping("/logout")
 	public String doLogout(HttpServletRequest request) {
-		request.getSession(true).removeAttribute("user");
+		request.getSession(true).removeAttribute(USER_ATTRIBUTE_NAME);
 		return "redirect:/";
 	}
 
@@ -60,8 +61,8 @@ public class LoginController {
 	}
 
 	@PostMapping("/register")
-	public String doRegister(Model model, @Valid @ModelAttribute("registerForm") RegisterForm registerForm,
-							 BindingResult result) {
+	public String postRegister(Model model, @Valid @ModelAttribute("registerForm") RegisterForm registerForm,
+							   BindingResult result) {
 		if(result.hasErrors()) {
 			return "register";
 		}
