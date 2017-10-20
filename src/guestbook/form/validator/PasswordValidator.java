@@ -7,8 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 	@Override
-	public void initialize(Password constraintAnnotation) {
-	}
+	public void initialize(Password constraintAnnotation) {}
 
 	@Override
 	public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {

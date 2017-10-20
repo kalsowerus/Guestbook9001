@@ -17,8 +17,9 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 	public static final String USER_ATTRIBUTE_NAME = "user";
+
 	@Resource
-	UserDao userDao;
+	private UserDao userDao;
 
 	@GetMapping("/login")
 	public String getLogin(Model model) {
