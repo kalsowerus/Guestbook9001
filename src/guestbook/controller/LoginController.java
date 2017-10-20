@@ -47,6 +47,7 @@ public class LoginController {
 			HttpSession session = request.getSession(true);
 			User user = getUserDao().getUser(username);
 			session.setAttribute(USER_ATTRIBUTE_NAME, user);
+			LOG.info(String.format("Logged in %s", LogUtil.getUserInfo(request)));
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "Invalid username or password");
@@ -57,7 +58,7 @@ public class LoginController {
 	@PostMapping("/logout")
 	public String postLogout(HttpServletRequest request) {
 		LOG.info(String.format("Logged out %s", LogUtil.getUserInfo(request)));
-		request.getSession(true).removeAttribute(USER_ATTRIBUTE_NAME);
+		request.getSession(true).invalidate();
 		return "redirect:/";
 	}
 
