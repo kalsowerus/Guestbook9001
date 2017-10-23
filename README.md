@@ -9,20 +9,16 @@ davon aus, dass die Apache Installation diejenige von XAMPP ist.
 
 ### Session-Fixation
 
-Um Session-Fixation-Angriffe zu verhindern, mussten wir in unserer JSP Applikation nur vor dem Login die aktuelle
-Session des (noch) anonymen Benutzers invalidieren. Dies geschieht mit einem Aufruf der
+Um Session-Fixation-Angriffe zu verhindern, mussten wir in unserer JSP Applikation vor dem Login, sowie nach dem Logout,
+die aktuelle Session des Benutzers invalidieren. Dies geschieht mit einem Aufruf der
 `javax.servlet.http.HttpSession.invalidate()`-Methode. Nach diesem Aufruf, gibt der nächste aufruf auf
 `javax.servlet.http.HttpServletRequest.getSession(true)` eine neue Session zurück und weist diese dem Benutzer zu.
 
 ### CSRF
 
-Die einzige Seite, welche anfällig auf CSRF-Angriffe ist und somit abgesichert werden muss, ist die Startseite.
-Dort kann ein eingeloggter Benutzer - in seinem Namen - einen Eintrag ins Gästebuch ertellen.
+Um CSRF-Angriffe zu verhindern, haben wir dem Dispatcher einen Filter angefügt, welcher alle POST-Requests überprüft.
 
-Auf der vorher erwähnten Seite sieht ein eingeloggter Benutzer ein Formular, in welchem er Text eintippen kann.
-Beim bestätigen wird per POST-Request dieser Text an den Server gesendet.
-
-Um hier einen CSRF-Angriff zu verhindern, müssen wir sichergehen, dass der Benutzer selbst, von dem von uns Erstellten
+Um einen CSRF-Angriff zu verhindern, müssen wir sichergehen, dass der Benutzer selbst, von dem von uns Erstellten
 Formular aus, die POST-Request ausgelöst hat.
 Dazu verwenden wir einen CSRF-Token.
 
@@ -34,9 +30,8 @@ dieser UUID in Java ist sehr trivial.
 Die Java Standard-Library bietet eine Klasse `java.util.UUID`, welche mithilfe eines kryptografisch sicheren
 Zufallszahlengenerators eine UUID generiert.
 
-Bei unserer Implementation wird beim ersten Aufruf der Startseite eines eingeloggten Benutzer eine UUID als CSRF-Token
+Bei unserer Implementation wird beim ersten Aufruf einer Seite eines eingeloggten Benutzer eine UUID als CSRF-Token
 generiert.
 Dieser CSRF-Token wird dann in die Session gespeichert und als verstecktes Input-Feld ins Formular eingefügt.
-Wenn eine POST-Request eines eingeloggten Benutzers auf die Startseite erfolgt, wird überprüft, ob der CSRF-Token des
-Formulars mit dem CSRF-Token aus der Session übereinstimmt, wenn dies nicht der Fall ist wird ein `HTTP 403`-Fehler
-zurückgegeben.
+Wenn eine POST-Request eines eingeloggten Benutzers erfolgt, wird überprüft, ob der CSRF-Token des Formulars mit dem
+CSRF-Token aus der Session übereinstimmt, wenn dies nicht der Fall ist wird ein `HTTP 403`-Fehler zurückgegeben.
