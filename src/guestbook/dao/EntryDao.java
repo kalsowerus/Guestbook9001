@@ -2,8 +2,16 @@ package guestbook.dao;
 
 import guestbook.entity.Entry;
 
+import java.util.List;
+
 public interface EntryDao {
-	Entry getEntries(int page);
+	List<Entry> getEntries(int page);
 
 	boolean updateEntry(Entry entry);
+
+	void createEntry(Entry entry);
+
+	Entry getEntry(long id);
+
+	boolean deleteEntry(long id);
 }

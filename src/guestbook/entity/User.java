@@ -37,4 +37,16 @@ public class User implements Serializable {
 	public boolean isAdmin() {
 		return hasRole(Role.ADMIN);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == this) return true;
+
+		if(obj == null) return false;
+
+		if(!(obj instanceof User)) return false;
+
+		User other = (User) obj;
+		return getUsername().equals(other.getUsername());
+	}
 }

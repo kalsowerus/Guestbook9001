@@ -12,6 +12,9 @@
 
 <t:template>
 	<h1>Guestbook</h1>
+	<c:forEach var="entry" items="${entries}">
+		<t:entry entry="${entry}" />
+	</c:forEach>
 	<c:if test="${not empty user}">
 		<t:form action="/" method="POST" modelAttribute="guestbookForm">
 			<div class="form-group">

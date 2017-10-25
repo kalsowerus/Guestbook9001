@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-@Component
+//@Component
 public class DefaultUserDao implements UserDao {
     @Override
     public User getUser(String username) {

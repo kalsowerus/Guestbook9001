@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-
+@Component
 public class MockUserDao implements UserDao {
 	@Override
 	public User getUser(String username) {
