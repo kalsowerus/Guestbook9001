@@ -4,7 +4,10 @@ import guestbook.dao.EntryDao;
 import guestbook.entity.Entry;
 import guestbook.entity.User;
 import guestbook.form.GuestbookForm;
+import guestbook.util.LogUtil;
 import guestbook.util.LoginUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,8 @@ import java.util.Date;
 
 @Controller
 public class GuestbookController {
+	private static Logger LOG = LoggerFactory.getLogger(GuestbookController.class);
+
 	@Resource
 	private EntryDao entryDao;
 
@@ -43,6 +48,7 @@ public class GuestbookController {
 			Entry entry = new Entry((long) (Math.random() * 1000), guestbookForm.getText(),
 					LoginUtil.getUser(session), new Date());
 			getEntryDao().createEntry(entry);
+			LOG.info(String.format("User %s created entry with id %s", LogUtil.getUserInfo(request), entry.getId()));
 			return "redirect:/";
 		}
 		return "redirect:/login";

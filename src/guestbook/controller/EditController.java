@@ -4,7 +4,10 @@ import guestbook.dao.EntryDao;
 import guestbook.entity.Entry;
 import guestbook.entity.User;
 import guestbook.form.GuestbookForm;
+import guestbook.util.LogUtil;
 import guestbook.util.LoginUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,8 @@ import java.util.Date;
 
 @Controller
 public class EditController {
+	private static Logger LOG = LoggerFactory.getLogger(EditController.class);
+
 	@Resource
 	private EntryDao entryDao;
 
@@ -68,6 +73,7 @@ public class EditController {
 			entry.setModificationTimestamp(new Date());
 			entry.setText(guestbookForm.getText());
 			getEntryDao().updateEntry(entry);
+			LOG.info(String.format("User %s edited entry with id %s", LogUtil.getUserInfo(request), id));
 			return "redirect:/";
 		}
 
@@ -107,6 +113,7 @@ public class EditController {
 
 		if(canEdit(session, entry)) {
 			getEntryDao().deleteEntry(id);
+			LOG.info(String.format("User %s deleted entry with id %s", LogUtil.getUserInfo(request), id));
 			return "redirect:/";
 		}
 
