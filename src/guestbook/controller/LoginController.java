@@ -1,6 +1,7 @@
 package guestbook.controller;
 
 import guestbook.dao.UserDao;
+import guestbook.entity.Role;
 import guestbook.entity.User;
 import guestbook.form.LoginForm;
 import guestbook.form.RegisterForm;
@@ -84,8 +85,10 @@ public class LoginController {
 		} else if(password == null || !password.equals(passwordRepeat)) {
 			model.addAttribute("error", "Passwords don't match");
 		} else {
-			// create user
-			return "redirect:/";
+			User u = new User(username, password, Role.USER);
+			if(userDao.createUser(u)){
+				return "redirect:/";
+			}
 		}
 
 		return "register";

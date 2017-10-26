@@ -5,16 +5,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Entry implements Serializable{
+public class Entry implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final long id;
+	@Column(name="entry_id")
+	private long id;
+
 	private String text;
-	private final User creator;
-	private final Date creationTimestamp;
+
+	@ManyToOne
+	@JoinColumn(name = "creator",foreignKey = @javax.persistence.ForeignKey(name = "user_fk"), nullable = false)
+	private User creator;
+
+	private Date creationTimestamp;
+
 	private User lastModifier;
+
 	private Date modificationTimestamp;
+
+	public Entry() {
+
+	}
 
 	public Entry(long id, String text, User creator, Date creationTimestamp) {
 		this.id = id;
@@ -25,6 +37,10 @@ public class Entry implements Serializable{
 
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getText() {
@@ -39,8 +55,16 @@ public class Entry implements Serializable{
 		return creator;
 	}
 
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
 	public Date getCreationTimestamp() {
 		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(Date creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
 	}
 
 	public User getLastModifier() {
@@ -59,3 +83,5 @@ public class Entry implements Serializable{
 		this.modificationTimestamp = modificationTimestamp;
 	}
 }
+
+

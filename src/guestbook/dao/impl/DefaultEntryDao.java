@@ -3,9 +3,11 @@ package guestbook.dao.impl;
 import guestbook.dao.EntryDao;
 import guestbook.entity.Entry;
 import guestbook.helper.EntityManagerHelper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+//@Component
 public class DefaultEntryDao implements EntryDao{
 
     private final EntityManagerHelper emh = new EntityManagerHelper();

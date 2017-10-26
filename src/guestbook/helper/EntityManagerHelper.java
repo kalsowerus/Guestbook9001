@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class EntityManagerHelper {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Guestbook9001" +"");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Guestbook9001");
     private static final ThreadLocal<EntityManager> tLocal = new ThreadLocal<EntityManager>();
 
     public static EntityManager getEntityManager() {
