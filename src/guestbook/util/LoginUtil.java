@@ -4,8 +4,10 @@ import guestbook.entity.User;
 
 import javax.servlet.http.HttpSession;
 
-public class LoginUtil {
+public final class LoginUtil {
 	private static final String USER_ATTRIBUTE_NAME = "user";
+
+	private LoginUtil() {}
 
 	public static boolean isLoggedIn(HttpSession session) {
 		return session.getAttribute(USER_ATTRIBUTE_NAME) != null;

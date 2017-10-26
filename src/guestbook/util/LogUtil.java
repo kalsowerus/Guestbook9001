@@ -4,7 +4,9 @@ import guestbook.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LogUtil {
+public final class LogUtil {
+	private LogUtil() {}
+
 	public static String getRequestInfo(HttpServletRequest request) {
 		return String.format("%s '%s' by %s",
 				request.getMethod(),
