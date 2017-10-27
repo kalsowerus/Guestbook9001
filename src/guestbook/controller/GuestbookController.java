@@ -31,8 +31,16 @@ public class GuestbookController {
 	private EntryDao entryDao;
 
 	@GetMapping("/")
-	public String getGuestbook(Model model, @ModelAttribute("guestbookForm") GuestbookForm guestbookForm) {
-		model.addAttribute("entries", getEntryDao().getEntries(1, 10));
+	public String getGuestbook(HttpServletRequest request, Model model, @ModelAttribute("guestbookForm") GuestbookForm guestbookForm) {
+		String pageParamter = request.getParameter("page");
+		int page;
+		if(pageParamter == null || !pageParamter.matches("\\d")) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(pageParamter);
+		}
+
+		model.addAttribute("entries", getEntryDao().getEntries(page, 2));
 		return "guestbook";
 	}
 
@@ -40,7 +48,7 @@ public class GuestbookController {
 	public String postGuestbook(HttpServletRequest request, HttpServletResponse response, Model model,
 								@Valid @ModelAttribute("guestbookForm") GuestbookForm guestbookForm, BindingResult result) throws IOException {
 		if(result.hasErrors()) {
-			return getGuestbook(model, guestbookForm);
+			return getGuestbook(request, model, guestbookForm);
 		}
 
 		HttpSession session = request.getSession(true);

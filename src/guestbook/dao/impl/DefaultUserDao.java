@@ -28,7 +28,7 @@ public class DefaultUserDao implements UserDao {
         } catch (NoResultException e){
 
         } catch (Exception e) {
-            LOG.error("Error while running query: " + e.getMessage());
+            throw new RuntimeException("Error getting user", e);
         }
         return user;
     }
@@ -41,9 +41,10 @@ public class DefaultUserDao implements UserDao {
             TypedQuery<String> query = em.createNamedQuery(User.GET_USER_PASSWORD, String.class);
             query.setParameter("username", username);
             pw = query.getSingleResult();
+        } catch (NoResultException e){
+
         } catch (Exception e){
-            LOG.error("Error while running query:", e);
-            e.printStackTrace();
+            throw new RuntimeException("Error authenticating user", e);
         }
         return EncryptionUtil.checkPassword(password, pw);
     }
@@ -56,8 +57,7 @@ public class DefaultUserDao implements UserDao {
             EncryptionUtil.injectPassword(user);
             em.persist(user);
         } catch (Exception e) {
-            LOG.error("Error while running query: " + e.getMessage());
-            return false;
+            throw new RuntimeException("Error creating user", e);
         }
         EntityManagerHelper.commitAndCloseTransaction();
         return true;
