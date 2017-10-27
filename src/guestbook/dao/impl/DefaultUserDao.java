@@ -3,6 +3,7 @@ package guestbook.dao.impl;
 import guestbook.dao.UserDao;
 import guestbook.entity.User;
 import guestbook.helper.EntityManagerHelper;
+import guestbook.util.EncryptionUtil;
 import guestbook.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,19 +38,16 @@ public class DefaultUserDao implements UserDao {
     @Override
     public boolean authenticateUser(String username, String password) {
         EntityManager em = EntityManagerHelper.getEntityManager();
-        User user = null;
+        String pw = "";
         try{
-            TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_USERNAME_AND_PASSWORD, User.class);
+            TypedQuery<String> query = em.createNamedQuery(User.GET_USER_PASSWORD, String.class);
             query.setParameter("username", username);
-            query.setParameter("password", password);
-            user = query.getSingleResult();
+            pw = query.getSingleResult();
         } catch (Exception e){
-            System.out.println("Error while running query: " + e.getMessage());
+            LOG.error("Error while running query:", e);
             e.printStackTrace();
         }
-        if(user != null){
-            return true;
-        } else return false;
+        return EncryptionUtil.checkPassword(password, pw);
     }
 
     @Override
@@ -57,6 +55,7 @@ public class DefaultUserDao implements UserDao {
         EntityManager em = EntityManagerHelper.getEntityManager();
         EntityManagerHelper.beginTransaction();
         try {
+            EncryptionUtil.injectPassword(user);
             em.persist(user);
         } catch (Exception e) {
             LOG.error("Error while running query: " + e.getMessage());

@@ -27,10 +27,13 @@ public class EncryptionUtil {
         try {
             password = encryptPassword(user.getPassword(), salt);
             user.setPassword(password);
-            user.setSalt(salt);
         } catch (Exception e) {
             LOG.error("Error" +  e.getMessage());
         }
+    }
+
+    public static boolean checkPassword(String plaintextPW, String hashedPW){
+        return BCrypt.checkpw(plaintextPW, hashedPW);
     }
 
 }

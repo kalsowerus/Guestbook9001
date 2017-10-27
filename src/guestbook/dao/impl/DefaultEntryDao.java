@@ -17,7 +17,6 @@ import java.util.List;
 public class DefaultEntryDao implements EntryDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEntryDao.class);
 
-
     @Override
     public List<Entry> getEntries(int page, int pagesize) {
         List<Entry> entries = new ArrayList<>();

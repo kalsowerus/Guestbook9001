@@ -8,12 +8,12 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="User.findByUsername", query="select u from User u where u.username = :username"),
-	@NamedQuery(name="User.findByUsernameAndPassword", query="select u from User u where u.username = :username and u.password = :password")
+	@NamedQuery(name="User.getUserPassword", query="select u.password from User u where u.username = :username")
 })
 public class User implements Serializable {
 
 	public final static String FIND_BY_USERNAME = "User.findByUsername";
-	public final static String FIND_BY_USERNAME_AND_PASSWORD = "User.findByUsernameAndPassword";
+	public final static String GET_USER_PASSWORD = "User.getUserPassword";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
@@ -21,7 +21,6 @@ public class User implements Serializable {
 	@Column(unique=true)
 	private String username;
 	private String password;
-	private String salt;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="creator")
 	private List<Entry> entries = null;
@@ -81,24 +80,12 @@ public class User implements Serializable {
 		return role;
 	}
 
-	public void setRoles(Role role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
-	/*public boolean hasRole(Role role) {
-		return getRoles().contains(role);
-	}*/
-
 	public boolean isAdmin() {
 		return role == Role.ADMIN;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 
 	@Override
