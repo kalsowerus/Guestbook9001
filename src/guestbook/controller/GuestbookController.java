@@ -32,12 +32,12 @@ public class GuestbookController {
 
 	@GetMapping("/")
 	public String getGuestbook(HttpServletRequest request, Model model, @ModelAttribute("guestbookForm") GuestbookForm guestbookForm) {
-		String pageParamter = request.getParameter("page");
+		String pageParameter = request.getParameter("page");
 		int page;
-		if(pageParamter == null || !pageParamter.matches("\\d")) {
+		if(pageParameter == null || !pageParameter.matches("\\d")) {
 			page = 1;
 		} else {
-			page = Integer.parseInt(pageParamter);
+			page = Integer.parseInt(pageParameter);
 		}
 
 		model.addAttribute("entries", getEntryDao().getEntries(page, 2));
