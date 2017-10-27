@@ -4,14 +4,12 @@ import guestbook.dao.UserDao;
 import guestbook.entity.User;
 import guestbook.helper.EntityManagerHelper;
 import guestbook.util.EncryptionUtil;
-import guestbook.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 

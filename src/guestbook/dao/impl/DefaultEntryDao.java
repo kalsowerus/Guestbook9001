@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Component
+@Component
 public class DefaultEntryDao implements EntryDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEntryDao.class);
 

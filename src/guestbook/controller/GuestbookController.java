@@ -32,7 +32,7 @@ public class GuestbookController {
 
 	@GetMapping("/")
 	public String getGuestbook(Model model, @ModelAttribute("guestbookForm") GuestbookForm guestbookForm) {
-		model.addAttribute("entries", getEntryDao().getEntries(0));
+		model.addAttribute("entries", getEntryDao().getEntries(1, 10));
 		return "guestbook";
 	}
 
