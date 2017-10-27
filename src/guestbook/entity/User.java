@@ -22,7 +22,7 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="creator")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="creator")
 	private List<Entry> entries = null;
 
 	@Enumerated(EnumType.STRING)
