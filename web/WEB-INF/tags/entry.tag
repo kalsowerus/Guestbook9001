@@ -21,7 +21,7 @@
 		(<c:out value="${entry.creationTimestamp}" />)
 		<c:if test="${not empty entry.lastModifier}">
 			last edited by
-			<b><c:out value="${entry.lastModifier.username}" /></b>
+			<b><c:out value="${entry.lastModifier	}" /></b>
 			(<c:out value="${entry.modificationTimestamp}" />)
 		</c:if>
 		<c:if test="${user.admin || user == entry.creator}">

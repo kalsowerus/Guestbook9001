@@ -1,6 +1,7 @@
 package guestbook.dao.impl;
 
 import guestbook.dao.UserDao;
+import guestbook.entity.Role;
 import guestbook.entity.User;
 import guestbook.helper.EntityManagerHelper;
 import guestbook.util.EncryptionUtil;
@@ -16,6 +17,13 @@ import javax.persistence.TypedQuery;
 @Component
 public class DefaultUserDao implements UserDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultUserDao.class);
+
+    public DefaultUserDao(){
+        if(this.getUser("admin") == null){
+            User admin = new User("admin", "admin", Role.ADMIN);
+            createUser(admin);
+        }
+    }
 
     @Override
     public User getUser(String username) {
