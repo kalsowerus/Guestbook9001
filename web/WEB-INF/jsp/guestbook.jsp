@@ -25,4 +25,7 @@
 			<button type="submit" class="btn btn-default">Post</button>
 		</t:form>
 	</c:if>
+	<c:forEach begin="1" end="${pagecount}" var="val">
+		<a href="?page=${val}">${val}</a>
+	</c:forEach>
 </t:template>

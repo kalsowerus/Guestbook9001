@@ -1,6 +1,7 @@
 package guestbook.controller;
 
 import guestbook.dao.EntryDao;
+import guestbook.dao.UserDao;
 import guestbook.entity.Entry;
 import guestbook.entity.User;
 import guestbook.form.GuestbookForm;
@@ -39,8 +40,9 @@ public class GuestbookController {
 		} else {
 			page = Integer.parseInt(pageParameter);
 		}
-
-		model.addAttribute("entries", getEntryDao().getEntries(page, 2));
+        int pagesize = 2;
+		model.addAttribute("entries", getEntryDao().getEntries(page, pagesize));
+		model.addAttribute("pagecount", getEntryDao().getPageCount(pagesize));
 		return "guestbook";
 	}
 

@@ -8,4 +8,6 @@ public interface UserDao {
 	boolean authenticateUser(String username, String password);
 
 	boolean createUser(User user);
+
+	boolean updateUser(User user);
 }

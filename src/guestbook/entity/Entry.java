@@ -20,7 +20,7 @@ public class Entry implements Serializable {
 
 	private Date creationTimestamp;
 
-	private User lastModifier;
+	private String lastModifier;
 
 	private Date modificationTimestamp;
 
@@ -66,11 +66,11 @@ public class Entry implements Serializable {
 		this.creationTimestamp = creationTimestamp;
 	}
 
-	public User getLastModifier() {
+	public String getLastModifier() {
 		return lastModifier;
 	}
 
-	public void setLastModifier(User lastModifier) {
+	public void setLastModifier(String lastModifier) {
 		this.lastModifier = lastModifier;
 	}
 

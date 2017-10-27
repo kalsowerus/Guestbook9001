@@ -69,7 +69,7 @@ public class EditController {
 		}
 
 		if(canEdit(session, entry)) {
-			entry.setLastModifier(LoginUtil.getUser(session));
+			entry.setLastModifier(LoginUtil.getUser(session).getUsername());
 			entry.setModificationTimestamp(new Date());
 			entry.setText(guestbookForm.getText());
 			getEntryDao().updateEntry(entry);

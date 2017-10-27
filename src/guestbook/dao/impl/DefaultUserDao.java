@@ -62,4 +62,16 @@ public class DefaultUserDao implements UserDao {
         EntityManagerHelper.commitAndCloseTransaction();
         return true;
     }
+    @Override
+    public boolean updateUser(User user){
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        EntityManagerHelper.beginTransaction();
+        try {
+            em.merge(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating user", e);
+        }
+        EntityManagerHelper.commitAndCloseTransaction();
+        return true;
+    }
 }

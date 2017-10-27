@@ -7,6 +7,8 @@ import java.util.List;
 public interface EntryDao {
 	List<Entry> getEntries(int page, int pagesize);
 
+	int getPageCount(int pagesize);
+
 	boolean updateEntry(Entry entry);
 
 	void createEntry(Entry entry);
