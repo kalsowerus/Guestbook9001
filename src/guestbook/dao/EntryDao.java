@@ -5,7 +5,7 @@ import guestbook.entity.Entry;
 import java.util.List;
 
 public interface EntryDao {
-	List<Entry> getEntries(int page);
+	List<Entry> getEntries(int page, int pagesize);
 
 	boolean updateEntry(Entry entry);
 

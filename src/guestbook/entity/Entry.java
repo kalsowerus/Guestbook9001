@@ -25,7 +25,6 @@ public class Entry implements Serializable {
 	private Date modificationTimestamp;
 
 	public Entry() {
-
 	}
 
 	public Entry(long id, String text, User creator, Date creationTimestamp) {
@@ -83,5 +82,3 @@ public class Entry implements Serializable {
 		this.modificationTimestamp = modificationTimestamp;
 	}
 }
-
-
