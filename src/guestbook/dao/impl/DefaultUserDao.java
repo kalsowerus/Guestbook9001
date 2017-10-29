@@ -20,7 +20,7 @@ public class DefaultUserDao implements UserDao {
 
     public DefaultUserDao(){
         if(this.getUser("admin") == null){
-            User admin = new User("admin", "admin", Role.ADMIN);
+            User admin = new User("admin", "admin1", Role.ADMIN);
             createUser(admin);
         }
     }
